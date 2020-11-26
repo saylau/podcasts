@@ -3,10 +3,13 @@ from os.path import join
 from distutils.util import strtobool
 import dj_database_url
 from configurations import Configuration
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-class Common(Configuration):
+class Base(Configuration):
+
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', "8!7%rfyf8_5s(zr8qc-lh1(8vc-^09=c1rr-thw*bo_s_9*16l")
 
     INSTALLED_APPS = (
         'django.contrib.admin',
@@ -21,11 +24,19 @@ class Common(Configuration):
         'rest_framework',            # utilities for rest apis
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
+        'phonenumber_field',
+        'corsheaders',
 
         # Your apps
         'apps.users',
+        'apps.podcasts',
+        'apps.questions',
+        'apps.test_questions',
+        'apps.glossary',
 
     )
+    CORS_ALLOW_ALL_ORIGINS = True
+    ALLOWED_HOSTS = ["*"]
 
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
     MIDDLEWARE = (
@@ -38,9 +49,7 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
 
-    ALLOWED_HOSTS = ["*"]
     ROOT_URLCONF = 'apps.urls'
-    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     WSGI_APPLICATION = 'apps.wsgi.application'
 
     # Email
@@ -52,15 +61,19 @@ class Common(Configuration):
 
     # Postgres
     DATABASES = {
-        'default': dj_database_url.config(
-            default='postgres://postgres:@postgres:5432/postgres',
-            conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
-        )
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("DB_NAME", "postgres"),
+            "USER": os.getenv("DB_USER", "postgres"),
+            "PASSWORD": os.getenv("DB_PASS", "postgres"),
+            "HOST": os.getenv("DB_HOST", "postgres"),
+            "PORT": os.getenv("DB_PORT", "5432"),
+        }
     }
 
     # General
-    APPEND_SLASH = False
-    TIME_ZONE = 'UTC'
+    APPEND_SLASH = True
+    TIME_ZONE = "Asia/Almaty"
     LANGUAGE_CODE = 'en-us'
     # If you set this to False, Django will make some optimizations so as not
     # to load the internationalization machinery.
@@ -71,17 +84,17 @@ class Common(Configuration):
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.0/howto/static-files/
-    STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), 'static'))
     STATICFILES_DIRS = []
-    STATIC_URL = '/static/'
     STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.FileSystemFinder',
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     )
+    STATIC_URL = os.getenv("STATIC_URL", "/static/")
+    STATIC_ROOT = os.getenv("STATIC_ROOT", os.path.join(BASE_DIR, "static"))
 
     # Media files
-    MEDIA_ROOT = join(os.path.dirname(BASE_DIR), 'media')
-    MEDIA_URL = '/media/'
+    MEDIA_URL = os.getenv("MEDIA_URL", "/media/")
+    MEDIA_ROOT = os.getenv("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 
     TEMPLATES = [
         {
@@ -105,20 +118,7 @@ class Common(Configuration):
 
     # Password Validation
     # https://docs.djangoproject.com/en/2.0/topics/auth/passwords/#module-django.contrib.auth.password_validation
-    AUTH_PASSWORD_VALIDATORS = [
-        {
-            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-        },
-        {
-            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        },
-        {
-            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-        },
-        {
-            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-        },
-    ]
+    AUTH_PASSWORD_VALIDATORS = []
 
     # Logging
     LOGGING = {
@@ -178,6 +178,8 @@ class Common(Configuration):
             },
         }
     }
+
+    PHONENUMBER_DEFAULT_REGION = "KZ"
 
     # Custom user app
     AUTH_USER_MODEL = 'users.User'
