@@ -1,11 +1,9 @@
 from rest_framework import serializers
-from rest_framework.exceptions import PermissionDenied
-from phonenumber_field.serializerfields import PhoneNumberField
 
-from apps.people.models import PersonalData
+from .models import Gloss
 
 
-class ClientDeliveryDocumentsSerializer(serializers.ModelSerializer):
+class GlossarySerializer(serializers.ModelSerializer):
     class Meta:
-        model = CardDeliveryDocument
+        model = Gloss
         fields = "__all__"

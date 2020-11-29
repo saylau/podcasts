@@ -4,7 +4,8 @@ from django.db import models
 
 class Test(models.Model):
     title = models.CharField(
-        "Название"
+        "Название",
+        max_length=255
     )
 
     def __str__(self):

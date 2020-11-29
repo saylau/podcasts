@@ -2,11 +2,11 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from .views import (
-    GlossaryViewSet,
+    QuestionViewSet,
 )
 
 router = DefaultRouter()
-router.register(r'glossary', GlossaryViewSet)
+router.register(r'question', QuestionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

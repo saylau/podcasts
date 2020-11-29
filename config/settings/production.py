@@ -4,7 +4,6 @@ from .base import Base
 
 class Production(Base):
     INSTALLED_APPS = Base.INSTALLED_APPS
-    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     # Site
     # https://docs.djangoproject.com/en/2.0/ref/settings/#allowed-hosts
     ALLOWED_HOSTS = ["*"]

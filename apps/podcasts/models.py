@@ -17,7 +17,7 @@ class AudioRecord(models.Model):
 
 
 class Playlist(models.Model):
-    title = models.CharField("Название")
+    title = models.CharField("Название", max_length=255)
 
 
 class PlaylistToAudioRecord(models.Model):

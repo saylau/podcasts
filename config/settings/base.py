@@ -4,7 +4,7 @@ from distutils.util import strtobool
 import dj_database_url
 from configurations import Configuration
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 class Base(Configuration):
@@ -26,6 +26,7 @@ class Base(Configuration):
         'django_filters',            # for filtering rest endpoints
         'phonenumber_field',
         'corsheaders',
+        'drf_yasg',
 
         # Your apps
         'apps.users',
@@ -63,10 +64,10 @@ class Base(Configuration):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DB_NAME", "postgres"),
-            "USER": os.getenv("DB_USER", "postgres"),
-            "PASSWORD": os.getenv("DB_PASS", "postgres"),
-            "HOST": os.getenv("DB_HOST", "postgres"),
+            "NAME": os.getenv("DB_NAME", "podcasts"),
+            "USER": os.getenv("DB_USER", "podcasts"),
+            "PASSWORD": os.getenv("DB_PASS", "podcasts"),
+            "HOST": os.getenv("DB_HOST", "localhost"),
             "PORT": os.getenv("DB_PORT", "5432"),
         }
     }
@@ -187,17 +188,24 @@ class Base(Configuration):
     # Django Rest Framework
     REST_FRAMEWORK = {
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-        'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
+        'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 100)),
         'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
         'DEFAULT_RENDERER_CLASSES': (
             'rest_framework.renderers.JSONRenderer',
             'rest_framework.renderers.BrowsableAPIRenderer',
         ),
-        'DEFAULT_PERMISSION_CLASSES': [
-            'rest_framework.permissions.IsAuthenticated',
-        ],
+        'DEFAULT_PERMISSION_CLASSES': [],
         'DEFAULT_AUTHENTICATION_CLASSES': (
             'rest_framework.authentication.SessionAuthentication',
             'rest_framework.authentication.TokenAuthentication',
         )
+    }
+
+    SWAGGER_SETTINGS = {
+        "USE_SESSION_AUTH": False,
+        "SECURITY_DEFINITIONS": {
+            "api_key": {"type": "apiKey", "name": "Authorization", "in": "header"},
+            'Basic': {'type': 'basic'},
+        },
+        "DEEP_LINKING": True,
     }
