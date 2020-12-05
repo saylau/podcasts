@@ -1,15 +1,29 @@
-FROM python:3.8
+FROM python:3.8-alpine
 ENV PYTHONUNBUFFERED 1
 
 # Allows docker to cache installed dependencies between builds
-COPY ./requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+COPY ./requirements requirements
+RUN pip install -r requirements/production.txt
+
+# Set volume for database and static files.
+RUN mkdir -p /static /media
+
+# Set docker-entrypoint
+# COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+# RUN chmod +x /docker-entrypoint.sh
 
 # Adds our application code to the image
-COPY . code
-WORKDIR code
+COPY . /app
+WORKDIR /app
+
+ENV STATIC_ROOT /static
+ENV MEDIA_ROOT /media
 
 EXPOSE 8000
 
-# Run the production server
-CMD newrelic-admin run-program gunicorn --bind 0.0.0.0:$PORT --access-logfile - apps.wsgi:application
+# Collect static
+RUN python manage.py collectstatic --noinput
+
+
+#CMD gunicorn --bind 0.0.0.0:8000 --access-logfile - apps.wsgi:application
+# CMD ["/docker-entrypoint.sh"]
