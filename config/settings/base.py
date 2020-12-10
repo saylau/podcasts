@@ -12,6 +12,7 @@ class Base(Configuration):
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', "8!7%rfyf8_5s(zr8qc-lh1(8vc-^09=c1rr-thw*bo_s_9*16l")
 
     INSTALLED_APPS = (
+        'djangocms_admin_style',
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
