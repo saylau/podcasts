@@ -75,7 +75,7 @@ class Base(Configuration):
     # General
     APPEND_SLASH = True
     TIME_ZONE = "Asia/Almaty"
-    LANGUAGE_CODE = 'en-us'
+    LANGUAGE_CODE = 'ru-RU'
     # If you set this to False, Django will make some optimizations so as not
     # to load the internationalization machinery.
     USE_I18N = False
