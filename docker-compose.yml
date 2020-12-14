@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=podcasts
-
+      - PGDATA=/var/lib/postgresql/data/pgdata
   web:
     restart: always
     environment:
