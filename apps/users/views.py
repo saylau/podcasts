@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny
 from .models import User, City
 from .permissions import IsUserOrReadOnly
 from .serializers import CreateUserSerializer, UserSerializer, ContactCitySerializer
-
+from rest_framework.viewsets import ModelViewSet
 
 class UserViewSet(mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,
