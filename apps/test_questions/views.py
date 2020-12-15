@@ -28,7 +28,7 @@ class TestListView(ListAPIView):
     def get(self, requets, category_id):
         return super().get(request, category_id)
 
-class QuestionListView(ListApiView):
+class QuestionListView(ListAPIView):
     serializer_class = TestQuestionSerializer
     pagination_class = LimitOffsetPagination
 
