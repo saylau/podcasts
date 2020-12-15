@@ -22,7 +22,7 @@ class TestSerializer(serializers.ModelSerializer):
         model = Test
         fields = "__all__"
 
-class CategorySerializer(serializer.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
