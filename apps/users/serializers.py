@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, City, Contact
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -9,6 +9,19 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'first_name', 'last_name',)
         read_only_fields = ('username', )
 
+class ContactSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Contact
+        fields = '__all__'
+
+class ContactCitySerializer(serializers.ModelSerializer):
+
+    contacts = ContactSerializer(many=True)
+
+    class Meta:
+        model = City
+        fields = '__all__'
 
 class CreateUserSerializer(serializers.ModelSerializer):
 
