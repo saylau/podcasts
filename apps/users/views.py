@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny
 from .models import User, City
 from .permissions import IsUserOrReadOnly
 from .serializers import CreateUserSerializer, UserSerializer, ContactCitySerializer
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import ListAPIView
 from rest_framework.pagination import LimitOffsetPagination
 
 class UserViewSet(mixins.RetrieveModelMixin,
@@ -27,7 +27,7 @@ class UserCreateViewSet(mixins.CreateModelMixin,
     permission_classes = (AllowAny,)
 
 
-class ContactViewSet(ModelViewSet):
+class ContactViewSet(ListAPIView):
     queryset = City.objects.all()
     serializer_class = ContactCitySerializer
     http_method_names = ['get']
