@@ -17,7 +17,7 @@ class TestQuestionSerializer(serializers.ModelSerializer):
 
 
 class TestSerializer(serializers.ModelSerializer):
-    questions = TestQuestionSerializer(many=True)
+    # questions = TestQuestionSerializer(many=True)
     class Meta:
         model = Test
         fields = "__all__"
