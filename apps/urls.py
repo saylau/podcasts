@@ -10,6 +10,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
 from .users.views import UserViewSet, UserCreateViewSet
+from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -37,6 +38,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('api-token-auth/', views.obtain_auth_token),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('devices?$', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create_fcm_device'),
     path('', include('apps.glossary.urls')),
     path('', include('apps.podcasts.urls')),
     path('', include('apps.questions.urls')),
