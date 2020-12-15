@@ -36,6 +36,7 @@ class Base(Configuration):
         'apps.questions',
         'apps.test_questions',
         'apps.glossary',
+        'apps.contact'
 
     )
     CORS_ALLOW_ALL_ORIGINS = True
