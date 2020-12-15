@@ -15,7 +15,6 @@ from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'users', UserCreateViewSet)
-router.register(r'contacts', ContactViewSet)
 
 internal_schema_view = get_schema_view(
     openapi.Info(
@@ -37,6 +36,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
+    path('api/v1/contacts/', ContactViewSet.as_view()),
     path('api-token-auth/', views.obtain_auth_token),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('devices/', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create_fcm_device'),
