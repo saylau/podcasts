@@ -21,7 +21,6 @@ class CategoryListView(ListAPIView):
 class TestListView(ListAPIView):
     serializer_class = TestSerializer
     pagination_class = LimitOffsetPagination
-    ination
 
     def get_queryset(self):
         return Test.objects.filter(category_id=self.kwargs['category_id'])
