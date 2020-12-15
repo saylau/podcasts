@@ -20,7 +20,7 @@ class CategoryListView(ListAPIView):
 
 class TestListView(ListAPIView):
     serializer_class = TestSerializer
-    pagination_class = LimitOffsetPag
+    pagination_class = LimitOffsetPagination
     ination
 
     def get_queryset(self):
