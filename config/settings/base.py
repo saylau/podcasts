@@ -67,11 +67,11 @@ class Base(Configuration):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DB_NAME", "podcasts"),
-            "USER": os.getenv("DB_USER", "podcasts"),
-            "PASSWORD": os.getenv("DB_PASS", "podcasts"),
-            "HOST": os.getenv("DB_HOST", "localhost"),
-            "PORT": os.getenv("DB_PORT", "5432"),
+            "NAME": "podcasts",
+            "USER": "postgres",
+            "PASSWORD": "postgres",
+            "HOST": "localhost",
+            "PORT": 5432,
         }
     }
 
