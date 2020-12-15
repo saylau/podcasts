@@ -6,6 +6,7 @@ gunicorn==20.0.4
 newrelic==5.22.1.152
 django-cors-headers~=3.5.0
 djangocms-admin-style~=2.0.2
+Pillow==8.0.1
 
 # For the persistence stores
 psycopg2-binary==2.8.6
