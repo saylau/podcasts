@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import TestQuestion, Test, TestQuestionAnswer
+from .models import TestQuestion, Test, TestQuestionAnswer, Category
 
 @admin.register(TestQuestion)
 class TestQuestionAdmin(admin.ModelAdmin):
@@ -12,4 +12,8 @@ class TestAdmin(admin.ModelAdmin):
 
 @admin.register(TestQuestionAnswer)
 class AnswerAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
     pass
